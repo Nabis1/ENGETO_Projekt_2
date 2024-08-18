@@ -54,8 +54,6 @@ def test_add_course_to_cart(page: Page):
 
     navigate_to_engeto_homepage(page)
 
-    accept_cookies(page)
-
     page.evaluate('window.scrollBy(400, 1000)')
     
     click_element(page, 'img[src="https://engeto.cz/wp-content/uploads/2022/12/TopicTesting-SmallerFalse-GreyscaleFalse-SolidTrue.svg"]')
