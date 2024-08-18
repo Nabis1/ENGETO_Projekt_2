@@ -28,16 +28,15 @@ def test_to_click_course_date(page: Page):
     
     accept_cookies(page)
 
-    courses_link = page.locator('a.block-button.type-premium.size-l.orange-link.hide-mobile')
-    courses_link.click()
+    click_element(page, 'a.block-button.type-premium.size-l.orange-link.hide-mobile')
 
     assert_page_url(page, 'https://engeto.cz/terminy/' )
 
 @pytest.mark.playwright
 def test_click_image(page: Page):
     
-    
     navigate_to_engeto_homepage(page)
+
     accept_cookies(page)
 
     page.evaluate('window.scrollBy(400, 1000)')
@@ -51,6 +50,7 @@ def test_click_image(page: Page):
 def test_add_course_to_cart(page: Page):
 
     navigate_to_engeto_homepage(page)
+    
     accept_cookies(page)
 
     page.evaluate('window.scrollBy(400, 1000)')
