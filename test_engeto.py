@@ -14,11 +14,15 @@ def assert_page_url(page: Page, expected_url: str):
     expect(page).to_have_url(expected_url)
 
 def click_element(page: Page, selector: str):
+    page.wait_for_selector(selector)
     element = page.locator(selector)
+    expect(element).to_be_visible()
     element.click()
     
 def fill_input_field(page: Page, locator: str, value: str):
+    page.wait_for_selector(locator)
     input_field = page.locator(locator)
+    expect(input_field).to_be_visible()
     input_field.fill(value)
 
 @pytest.mark.playwright
@@ -45,12 +49,11 @@ def test_click_image(page: Page):
     
     assert_page_url(page, 'https://engeto.cz/testovani-softwaru/')
     
-
 @pytest.mark.playwright
 def test_add_course_to_cart(page: Page):
 
     navigate_to_engeto_homepage(page)
-    
+
     accept_cookies(page)
 
     page.evaluate('window.scrollBy(400, 1000)')
