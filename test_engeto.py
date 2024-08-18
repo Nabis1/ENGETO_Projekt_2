@@ -76,5 +76,3 @@ def test_add_course_to_cart(page: Page):
     click_element(page, '#terms')
 
     click_element(page, '#place_order')
-
-    
