@@ -20,7 +20,7 @@ This project is a set of automated tests for the Engeto website using the Playwr
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/yourusername/your-repo-name.git
+    git clone https://github.com/Nabis1/ENGETO_Projekt_2.git
     cd ENGETO_Projekt_2
     ```
 
