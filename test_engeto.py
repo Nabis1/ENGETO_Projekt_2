@@ -86,7 +86,7 @@ def test_add_course_to_cart(page: Page):
     
     assert_page_url(page, 'https://engeto.cz/testovani-softwaru/')
 
-    click_specific_text_in_product_box(page, '10. 12. – 25. 02. 2025, Online', 'Detail Termínu')
+    click_specific_text_in_product_box(page, '10. 12. – 11. 03. 2025, Online', 'Detail Termínu')
 
     click_specific_text(page, "Přihlas se na termín")
 
