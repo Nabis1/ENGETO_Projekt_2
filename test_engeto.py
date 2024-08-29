@@ -18,6 +18,30 @@ def click_element(page: Page, selector: str):
     element = page.locator(selector)
     expect(element).to_be_visible()
     element.click()
+
+def click_specific_banner(page: Page, text: str):
+    banner = page.locator(f'a.card:has(h3.title:has-text("{text}"))')
+    expect(banner).to_be_visible()
+    banner.click()
+
+def click_specific_button_inside_nav_bar(page: Page, text: str):
+    nav_bar = page.locator('#top-navigation')
+    nav_bar.wait_for(state='visible')
+    button = nav_bar.locator(f'a.block-button:has-text("{text}")')
+    expect(button).to_be_visible()
+    button.click()    
+
+def click_specific_text(page: Page, button_text: str):
+    button = page.locator(f'button:has-text("{button_text}"), a:has-text("{button_text}")')
+    expect(button).to_be_visible()
+    button.click()
+
+def click_specific_text_in_product_box(page: Page, h3_text: str, link_text: str):
+    product_box = page.locator(f'.product-box:has(h3.title:has-text("{h3_text}"))')
+    expect(product_box).to_be_visible()
+    detail_link = product_box.locator(f'a.block-button:has-text("{link_text}")')
+    expect(detail_link).to_be_visible()
+    detail_link.click()
     
 def fill_input_field(page: Page, locator: str, value: str):
     page.wait_for_selector(locator)
@@ -32,7 +56,7 @@ def test_to_click_course_date(page: Page):
     
     accept_cookies(page)
 
-    click_element(page, 'a.block-button.type-premium.size-l.orange-link.hide-mobile')
+    click_specific_button_inside_nav_bar(page, 'Termíny')
 
     assert_page_url(page, 'https://engeto.cz/terminy/' )
 
@@ -45,7 +69,7 @@ def test_click_image(page: Page):
 
     page.evaluate('window.scrollBy(400, 1000)')
     
-    click_element(page, 'img[src="https://engeto.cz/wp-content/uploads/2022/12/TopicTesting-SmallerFalse-GreyscaleFalse-SolidTrue.svg"]')
+    click_specific_banner(page, 'Testing Akademie')
     
     assert_page_url(page, 'https://engeto.cz/testovani-softwaru/')
     
@@ -54,17 +78,19 @@ def test_add_course_to_cart(page: Page):
 
     navigate_to_engeto_homepage(page)
 
+    accept_cookies(page)
+
     page.evaluate('window.scrollBy(400, 1000)')
     
-    click_element(page, 'img[src="https://engeto.cz/wp-content/uploads/2022/12/TopicTesting-SmallerFalse-GreyscaleFalse-SolidTrue.svg"]')
+    click_specific_banner(page, 'Testing Akademie')
     
     assert_page_url(page, 'https://engeto.cz/testovani-softwaru/')
 
-    click_element(page, 'a[href="https://engeto.cz/product/detail-terminu-testing-akademie-10-12-2024-25-2-2025/"]')
+    click_specific_text_in_product_box(page, '10. 12. – 25. 02. 2025, Online', 'Detail Termínu')
 
-    click_element(page, 'a.block-button.size-l.mobile-size-xl.type-premium:has-text("Přihlas se na termín")')
+    click_specific_text(page, "Přihlas se na termín")
 
-    click_element(page, 'a[href="https://engeto.cz/checkout/"]')
+    click_specific_text(page, 'Přejít k pokladně')
 
     fill_input_field(page, '#billing_first_name', 'Karel')
     fill_input_field(page, '#billing_last_name', 'Čtvrtý')
@@ -76,4 +102,4 @@ def test_add_course_to_cart(page: Page):
 
     click_element(page, '#terms')
 
-    click_element(page, '#place_order')
+    click_specific_text(page, "Objednávka zavazující k platbě")
